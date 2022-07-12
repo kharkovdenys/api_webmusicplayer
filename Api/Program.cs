@@ -3,7 +3,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder =>
     {
-        builder.WithOrigins("http://localhost:3000", "https://webmusicplayer.azurewebsites.net").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+        builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
     });
 });
 builder.Services.AddDbContext<UserDb>(options =>
