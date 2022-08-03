@@ -10,7 +10,6 @@ builder.Services.AddDbContext<UserDb>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("connect"));
 });
-
 builder.Services.AddDbContext<MusicDb>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("connect"));
@@ -99,7 +98,7 @@ app.MapGet("/musics", async (HttpContext context, MusicDb db, ITokenService toke
         return Results.BadRequest("Token error");
     }
 });
-app.MapPost("/musics", async ([FromBody] MusicId music, MusicDb db, HttpContext context, ITokenService tokenService) =>
+app.MapPost("/musics", async ([FromBody] Music music, MusicDb db, HttpContext context, ITokenService tokenService) =>
  {
      try
      {
@@ -118,7 +117,7 @@ app.MapPost("/musics", async ([FromBody] MusicId music, MusicDb db, HttpContext 
          return Results.BadRequest("Token error");
      }
  });
-app.MapDelete("/musics", async ([FromBody] MusicId music, MusicDb db, HttpContext context, ITokenService tokenService) =>
+app.MapDelete("/musics", async ([FromBody] Music music, MusicDb db, HttpContext context, ITokenService tokenService) =>
 {
     try
     {
@@ -137,13 +136,13 @@ app.MapDelete("/musics", async ([FromBody] MusicId music, MusicDb db, HttpContex
     }
 
 });
-app.MapPost("/user", async ([FromBody] UserName find, UserDb db, HttpContext context) =>
+app.MapPost("/user", async ([FromBody] User find, UserDb db, HttpContext context) =>
 {
     try
     {
-    if (find.username.Length<1)
+    if (find.UserName.Length<1)
             return Results.BadRequest("Find data empty");
-        return Results.Ok(await db.Users.Select(x=>x.UserName).Where(y => y.Substring(0,find.username.Length)== find.username).ToListAsync());
+        return Results.Ok(await db.Users.Select(x=>x.UserName).Where(y => y.Substring(0,find.UserName.Length)== find.UserName).ToListAsync());
     }
     catch (Exception)
     {
