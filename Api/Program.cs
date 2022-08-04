@@ -105,7 +105,7 @@ app.MapPost("/musics", async ([FromBody] Music music, MusicDb db, HttpContext co
          var token = context.Request.Headers.Authorization;
          string UserName = tokenService.Read(token!);
          var find = await db.Musics.FirstOrDefaultAsync(x => x.UserName == UserName && x.IdVideo == music.IdVideo);
-         if(find != null)
+         if (find != null)
              db.Musics.Remove(find);
          Music history = new(music.IdVideo, UserName, DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"));
          await db.Musics.AddAsync(history);
@@ -123,8 +123,8 @@ app.MapDelete("/musics", async ([FromBody] Music music, MusicDb db, HttpContext 
     {
         var token = context.Request.Headers.Authorization;
         string UserName = tokenService.Read(token!);
-        var find = await db.Musics.FirstOrDefaultAsync(x=>x.UserName==UserName&&x.IdVideo==music.IdVideo);
-        if(find==null)
+        var find = await db.Musics.FirstOrDefaultAsync(x => x.UserName == UserName && x.IdVideo == music.IdVideo);
+        if (find == null)
             return Results.BadRequest("Not found");
         db.Musics.Remove(find);
         await db.SaveChangesAsync();
@@ -140,9 +140,9 @@ app.MapPost("/user", async ([FromBody] User find, UserDb db, HttpContext context
 {
     try
     {
-    if (find.UserName.Length<1)
+        if (find.UserName.Length < 1)
             return Results.BadRequest("Find data empty");
-        return Results.Ok(await db.Users.Select(x=>x.UserName).Where(y => y.Substring(0,find.UserName.Length)== find.UserName).ToListAsync());
+        return Results.Ok(await db.Users.Select(x => x.UserName).Where(y => y.Substring(0, find.UserName.Length) == find.UserName).ToListAsync());
     }
     catch (Exception)
     {

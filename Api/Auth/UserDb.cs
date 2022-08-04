@@ -5,6 +5,6 @@
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().ToTable("User").HasKey("UserName");
+        modelBuilder.Entity<User>().HasKey("UserName");
     }
 }

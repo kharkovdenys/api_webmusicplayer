@@ -5,6 +5,6 @@
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Music>().ToTable("Music").HasKey("Id");
+        modelBuilder.Entity<Music>().HasKey("Id");
     }
 }
